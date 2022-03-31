@@ -106,8 +106,8 @@ try:
                                  Id int(11) NOT NULL,
                                  entrada_pcounter float NOT NULL,
                                  salida_pcounter float NOT NULL,
-                                 fecha Date NOT NULL,
-                                 PRIMARY KEY (Id)) """
+                                 fecha timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+                                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; """
 
     cursor = connection.cursor()
     result = cursor.execute(mySql_Crear_tabla)
