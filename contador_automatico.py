@@ -103,7 +103,7 @@ try:
 #############################################################################
 #proceso para crear tabla
     mySql_Crear_tabla = """CREATE TABLE usuarios ( 
-                                 Id int(11) NOT NULL,
+                                 Id int(11) NOT NULL AUTO_INCREMENT, PRIMARY KEY (`Id`),
                                  entrada_pcounter float NOT NULL,
                                  salida_pcounter float NOT NULL,
                                  fecha timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
