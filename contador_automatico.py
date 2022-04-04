@@ -14,7 +14,7 @@ from mysql.connector import Error
 
 entrada_pcounter = 0
 salida_pcounter = 0
-cap = cv2.VideoCapture('videodemo.mp4') # video que se usa de ejemplo
+cap = cv2.VideoCapture('videoprueba.avi') # video que se usa de ejemplo
 
 #############################################################################
 
@@ -30,7 +30,7 @@ while True:
 
     #Especificamos el area a anilizar.
     #Aqui puedes editar el area donde se necesita analizar esta en sentido de las manecillas de reloj
-    area_pts = np.array([[300,380], [530,380], [530,560], [300,560]])
+    area_pts = np.array([[330,240], [530,240], [530,420], [330,420]])
 
     # determinamos el area donde se analizara apoyandonos con una imagen auxiliar
     imgAux = np.zeros(shape=(frame.shape[:2]), dtype= np.uint8)
@@ -54,29 +54,29 @@ while True:
             x, y, w, h = cv2.boundingRect(cnt)
             cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0),2)
 
-    # si la persona cruza entre 495 y 508 en "Y", se incrementara
+    # si la persona cruza entre 255 y 265 en "Y", se incrementara
     # en 1 el contador de entradas al autobus
-            if 495 < (y + h) < 508 :
+            if 255 < (y + h) < 265 :
                 entrada_pcounter = entrada_pcounter + 1
-                cv2.line(frame, (300,500), (530,500), (0, 255, 255), 4) # linea para entrada
+                cv2.line(frame, (330,260), (530,260), (0, 255, 255), 4) # linea para entrada
     
     for cnt in cnts:
         if cv2.contourArea(cnt) > 500:
             x, y, w, h = cv2.boundingRect(cnt)
             cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0),2)
     
-    # si la persona cruza entre 390 y 410 en "Y", se incrementara
+    # si la persona cruza entre 375 y 385 en "Y", se incrementara
     # en 1 el contador de entradas al autobus
-            if 390< (y + h) < 410 :
+            if 375< (y + h) < 385 :
                 salida_pcounter = salida_pcounter + 1
-                cv2.line(frame, (300,400), (530,400), (0, 255, 255), 4) # linea para salida
+                cv2.line(frame, (330,380), (530,380), (0, 255, 255), 4) # linea para salida
             
 
     # para poder visualizar lo que estemos haciendo
 
     cv2.drawContours(frame, [area_pts], -1, (255, 0, 255), 2)
-    cv2.line(frame, (300,500), (530,500), (0, 255, 255), 1) # linea para entrada
-    cv2.line(frame, (300,400), (530,400), (0, 255, 255), 1) # linea para salida
+    cv2.line(frame, (330,260), (530,260), (0, 255, 255), 1) # linea para entrada
+    cv2.line(frame, (330,380), (530,380), (0, 255, 255), 1) # linea para salida
     cv2.putText(frame, str(entrada_pcounter), (frame.shape[1]-55, 250), #texto de contador de entrada
     cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 2)
 
@@ -91,7 +91,6 @@ while True:
 
 #############################################################################
 # conexion a base de datos
-
 
 try:
     connection = mysql.connector.connect(host='localhost',
